@@ -1,0 +1,26 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: apigateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: woofUsers
+          uri: http://localhost:8091
+          predicates:
+            - Path=/woofUsers/**
+
+        - id: dogs
+          uri: http://localhost:8091
+          predicates:
+            - Path=/dogs/**
+
+        - id: auth
+          uri: http://localhost:8080
+          predicates:
+            - Path=/realms/**
